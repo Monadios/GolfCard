@@ -1,13 +1,14 @@
 package com.ckey.golfcard;
 
+import android.app.Dialog;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.*;
 
 public class Putting extends AppCompatActivity
 {
@@ -17,17 +18,24 @@ public class Putting extends AppCompatActivity
     {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_putting );
-        TableLayout table = (TableLayout) findViewById( R.id.table_layout );
-        TableRow row = new TableRow( this );
-        EditText text = new EditText( this );
-        EditText text2 = new EditText( this );
-        text.setInputType( InputType.TYPE_CLASS_NUMBER );
-        row.addView(text, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-        row.addView(text2, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-        table.addView( row );
+        drawFields( 2, 9 );
+    }
 
-        /*for(int i = 0; i < 9; i++) {
-            table.addView( text );
-        }*/
+    private void drawFields(int numPlayers, int numRounds)
+    {
+        TableLayout table = (TableLayout) findViewById( R.id.table_layout );
+        for ( int i = 0; i < numRounds; i++ ) {
+            TableRow round = new TableRow( this );
+            for ( int j = 0; j < numPlayers; j++ ) {
+                EditText text = new EditText( this );
+                text.setLayoutParams( new ActionBar.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT ) );
+                text.setId( i * j );
+                text.setInputType( InputType.TYPE_CLASS_NUMBER );
+                round.addView( text, new TableRow.LayoutParams( i, TableRow.LayoutParams.WRAP_CONTENT, 1f ) );
+            }
+            table.addView( round );
+        }
     }
 }
