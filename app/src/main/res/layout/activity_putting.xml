@@ -42,5 +42,17 @@
                   android:id="@+id/p2_text"
                   android:layout_marginBottom="31dp" android:layout_above="@+id/p2_field"
                   android:layout_centerHorizontal="true"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="next"
+                android:id="@+id/next_btn"
+                android:layout_marginBottom="36dp"
+                android:layout_alignParentBottom="true" android:layout_toLeftOf="@+id/p2_text"
+                android:layout_toStartOf="@+id/p2_text"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Save"
+                android:id="@+id/save_btn"
+                android:layout_alignTop="@+id/next_btn" android:layout_toRightOf="@+id/holetext"
+                android:layout_toEndOf="@+id/holetext"/>
     </RelativeLayout>
 </LinearLayout>
