@@ -21,14 +21,16 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/p1_field"
-                android:layout_marginTop="27dp" android:gravity="center"
-                android:inputType="number" android:layout_below="@+id/p1_text" android:layout_alignLeft="@+id/holetext"
+                android:layout_marginTop="26dp" android:gravity="center"
+                android:inputType="number"
+                android:layout_below="@+id/p1_text" android:layout_alignLeft="@+id/holetext"
                 android:layout_alignStart="@+id/holetext"/>
         <EditText android:layout_width="100dp" android:layout_height="wrap_content" android:id="@+id/p2_field"
-                  android:layout_marginBottom="123dp"
+                  android:layout_marginBottom="41dp"
                   android:gravity="center" android:inputType="number" android:digits="1234567890"
-                  android:editable="false" android:layout_alignParentBottom="true"
-                  android:layout_centerHorizontal="true"/>
+                  android:editable="false"
+                  android:layout_above="@+id/next_btn" android:layout_alignRight="@+id/holetext"
+                  android:layout_alignEnd="@+id/holetext"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

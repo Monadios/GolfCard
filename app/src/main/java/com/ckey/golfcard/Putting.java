@@ -1,11 +1,16 @@
 package com.ckey.golfcard;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import org.w3c.dom.Text;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -51,7 +56,7 @@ public class Putting extends AppCompatActivity
                 */
                 if( curRound < MAX_ROUNDS) {
 
-                    if ( p1score.getText().length() != 0 && p1score.getText().length() != 0 ) {
+                    if ( p1score.getText().length() != 0 && p2score.getText().length() != 0 ) {
 
                         int s1 = Integer.parseInt( p1score.getText().toString() );
                         int s2 = Integer.parseInt( p2score.getText().toString() );
@@ -73,6 +78,17 @@ public class Putting extends AppCompatActivity
                 }
             }
         } );
+
+        saveButton.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+                writeToFile( scoresToString(), getApplicationContext());
+                String f = readFromFile(getApplicationContext());
+                curRoundText.setText( f );
+            }
+        } );
     }
 
 
@@ -84,5 +100,56 @@ public class Putting extends AppCompatActivity
             System.out.println( e.getValue() );
         }
 
+    }
+
+    String scoresToString()
+    {
+        String s = "";
+        for( HashMap.Entry<String, ArrayList<Integer>> e : scores.entrySet()){
+            s += e.getKey() + e.getValue();
+        }
+
+        return s;
+    }
+
+    private void writeToFile(String data,Context context) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    private String readFromFile(Context context) {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = context.openFileInput("config.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
     }
 }
